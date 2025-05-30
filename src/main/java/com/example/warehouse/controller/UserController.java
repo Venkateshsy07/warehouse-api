@@ -28,6 +28,4 @@ public class UserController {
         UserResponse userResponse = userService.findById(id);
         return RestResponceBuilder.ok("Found User", userResponse, HttpStatus.OK);
     }
-
-    // update logic
 }
