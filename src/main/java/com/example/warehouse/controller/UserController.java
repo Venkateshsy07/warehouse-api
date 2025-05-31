@@ -5,6 +5,7 @@ import com.example.warehouse.dto.response.UserResponse;
 import com.example.warehouse.service.UserService;
 import com.example.warehouse.utility.ResponseStructure;
 import com.example.warehouse.utility.RestResponceBuilder;
+import org.hibernate.annotations.Fetch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,4 +29,14 @@ public class UserController {
         UserResponse userResponse = userService.findById(id);
         return RestResponceBuilder.ok("Found User", userResponse, HttpStatus.OK);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseStructure<UserResponse>> updateById(
+            @RequestParam String id,
+            @RequestBody UserRequest updatedUser) {
+        UserResponse userResponse = userService.updateById(id, updatedUser);
+        return RestResponceBuilder.ok("User Updated", userResponse, HttpStatus.OK);
+    }
+
+
 }
