@@ -44,4 +44,18 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundWithid("User with ID " + userId + " not found"));
         return userMapper.userToResponse(user);
     }
+
+    @Override
+    public UserResponse updateById(String id, UserRequest updatedUser) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundWithid("User with ID " + id + " not found"));
+
+        if (updatedUser.username() != null) existingUser.setUsername(updatedUser.username());
+        if (updatedUser.email() != null) existingUser.setEmail(updatedUser.email());
+        if (updatedUser.password() != null) existingUser.setPassword(updatedUser.password());
+
+        userRepository.save(existingUser);
+        return userMapper.userToResponse(existingUser);
+    }
 }
+
