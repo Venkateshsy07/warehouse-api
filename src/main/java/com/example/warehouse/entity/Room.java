@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "room")
-public class Rooms {
+public class Room {
 
     @ManyToOne
     private WareHouse warehouse;

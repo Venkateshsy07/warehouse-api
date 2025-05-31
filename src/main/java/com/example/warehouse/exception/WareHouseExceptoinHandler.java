@@ -13,7 +13,11 @@ public class WareHouseExceptoinHandler{
         ErrorStructure errorResponse = new ErrorStructure(HttpStatus.NOT_FOUND.value(),e.getMessage());
         return new ResponseEntity<ErrorStructure>(errorResponse,HttpStatus.NOT_FOUND);
     }
-
+    @ExceptionHandler
+    public ResponseEntity<ErrorStructure> handleUserNotFound(WareHouseNotFindByIdException e){
+        ErrorStructure errorResponse = new ErrorStructure(HttpStatus.NOT_FOUND.value(),e.getMessage());
+        return new ResponseEntity<ErrorStructure>(errorResponse,HttpStatus.NOT_FOUND);
+    }
 }
 
 
