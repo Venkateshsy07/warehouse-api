@@ -7,7 +7,5 @@ public record BlockRequest(
         double length,
         double breath,
         BlockType type
-
-        // tt
 ) {
 }

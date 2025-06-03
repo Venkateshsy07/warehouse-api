@@ -8,14 +8,15 @@ import com.example.warehouse.utility.RestResponceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/warehouses")
 public class WareHouseController {
     @Autowired
     private WareHouseService wareHouseService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add/{userId}")
     public ResponseEntity<ResponseStructure<WareHouseResponse>> addWareHouse(@RequestBody WareHouseRequest request, @PathVariable String userId) {
         
