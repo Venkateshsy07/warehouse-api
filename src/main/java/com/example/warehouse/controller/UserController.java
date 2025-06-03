@@ -9,16 +9,16 @@ import org.hibernate.annotations.Fetch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add")
+    @PostMapping("/register")
     public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRequest urr) {
         UserResponse userResponse = userService.addUser(urr);
         return RestResponceBuilder.ok("User Added", userResponse, HttpStatus.CREATED);
@@ -29,13 +29,13 @@ public class UserController {
         UserResponse userResponse = userService.findById(id);
         return RestResponceBuilder.ok("Found User", userResponse, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAuthority('ADMIN'))")
     @PutMapping("/update")
     public ResponseEntity<ResponseStructure<UserResponse>> updateById(
             @RequestParam String id,
-            @RequestBody UserRequest updatedUser) {
-        UserResponse userResponse = userService.updateById(id, updatedUser);
-        return RestResponceBuilder.ok("User Updated", userResponse, HttpStatus.OK);
+            @RequestBody UserRequest request) {
+        UserResponse userResponse = userService.updateUser(request);
+        return RestResponceBuilder.ok("User Updated ", userResponse, HttpStatus.CREATED);
     }
 
 

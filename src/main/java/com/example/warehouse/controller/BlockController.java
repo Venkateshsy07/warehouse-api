@@ -8,6 +8,7 @@ import com.example.warehouse.utility.RestResponceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class BlockController {
 
     @Autowired
     private BlockService blockService;
-
+    @PreAuthorize("hasAuthority('ADMIN'))")
     @PostMapping("/blocks/{RoomId}")
     public ResponseEntity<ResponseStructure<BlockResponse>> createBlock(@RequestBody BlockRequest request, @PathVariable String RoomId) {
         BlockResponse blockResponse = blockService.createBlock(request, RoomId);

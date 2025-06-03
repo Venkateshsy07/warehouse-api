@@ -7,5 +7,7 @@ public interface UserService {
     UserResponse addUser(UserRequest user);
     UserResponse findById(String userId);
 
-    UserResponse updateById(String id, UserRequest updatedUser);
+    UserResponse updateUser( UserRequest request);
+
+    UserResponse deleteUserById(String userId);
 }
