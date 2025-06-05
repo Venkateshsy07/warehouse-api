@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class WareHouseExceptoinHandler{
     @ExceptionHandler
-    public ResponseEntity<ErrorStructure> handleIllegalOperation(InvalidUserRole e){
+    public ResponseEntity<ErrorStructure> handleIllegalOperation(UnSupportedUserRoleException e){
         ErrorStructure errorResponse = new ErrorStructure(HttpStatus.NOT_FOUND.value(),e.getMessage());
         return new ResponseEntity<ErrorStructure>(errorResponse,HttpStatus.NOT_FOUND);
     }

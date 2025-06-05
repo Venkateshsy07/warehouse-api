@@ -29,7 +29,7 @@ public class Block {
     private double length;
 
     @Column(name = "breath",nullable = false)
-    private double breath;
+    private double breadth;
 
     @Column(name = "type",nullable = false)
     private BlockType type;

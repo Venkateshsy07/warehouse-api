@@ -3,6 +3,7 @@ package com.example.warehouse.Security;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class AuthUtils {
@@ -24,4 +25,10 @@ public class AuthUtils {
 
 
     }
+    public static void setAuthentication(Authentication authentication) {
+        Objects.requireNonNull(authentication, "Authentication must not be null");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    }
+
 }

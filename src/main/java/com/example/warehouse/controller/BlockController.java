@@ -19,7 +19,7 @@ public class BlockController {
 
     @Autowired
     private BlockService blockService;
-    @PreAuthorize("hasAuthority('ADMIN'))")
+
     @PostMapping("/blocks/{RoomId}")
     public ResponseEntity<ResponseStructure<BlockResponse>> createBlock(@RequestBody BlockRequest request, @PathVariable String RoomId) {
         BlockResponse blockResponse = blockService.createBlock(request, RoomId);

@@ -23,7 +23,7 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
-    @PreAuthorize("harsAuthority('ADMIN')")
+
     @PostMapping("/rooms/{warehouseId}")
     public ResponseEntity<ResponseStructure<RoomResponse>> createRoom(@RequestBody RoomRequest request, @PathVariable String warehouseId) {
         RoomResponse roomResponse = roomService.createRoom(request, warehouseId);

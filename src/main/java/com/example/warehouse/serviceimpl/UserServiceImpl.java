@@ -1,6 +1,7 @@
 package com.example.warehouse.serviceimpl;
 
-import com.example.warehouse.exception.InvalidUserRole;
+
+import com.example.warehouse.exception.UnSupportedUserRoleException;
 import com.example.warehouse.exception.UserNotFoundWithid;
 import com.example.warehouse.exception.UsernotLogedIn;
 import com.example.warehouse.mapper.UserMapper;
@@ -27,15 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse addUser(UserRequest urr) {
-        User user;
-        if (urr.userRole().equals(UserRole.STAFF)) {
-            user = userMapper.userToEntity(urr, new Staff());
-        } else if (urr.userRole().equals(UserRole.ADMIN)) {
-            user = userMapper.userToEntity(urr, new Admin());
-        } else {
-            throw new InvalidUserRole("Invalid user role");
-        }
-        String encodedPassword=passwordEncoder.encode(urr.password());
+        User user = switch (urr.userRole()){
+            case ADMIN -> userMapper.userToEntity(urr, new Admin());
+            case STAFF -> userMapper.userToEntity(urr, new Staff());
+            default -> throw new UnSupportedUserRoleException("Unsupported role: " + urr.userRole());
+        };
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userRepository.save(user);
         return userMapper.userToResponse(user);
